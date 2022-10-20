@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import "./Editor.css";
 import ReactMarkdown from "react-markdown";
 import breaks from "remark-breaks";
 import LinkInput from "../LinkInput/LinkInput";
@@ -8,12 +9,13 @@ import {
   FaCode,
   FaRegFileCode,
   FaLink,
-  FaRegEnvelope,
+  FaRegImage,
 } from "react-icons/fa";
 
 const Editor = () => {
   const [currentText, setCurrentText] = useState(``);
   const [show, setShow] = useState(false);
+  const [showImgPopUp, setShowImgPopUp] = useState(false);
   const [url, setUrl] = useState("https://");
   const [name, setName] = useState("");
 
@@ -25,6 +27,7 @@ const Editor = () => {
 
   const handleClose = () => {
     setShow(false);
+    setShowImgPopUp(false);
     setUrl("https://");
     setName("");
   };
@@ -211,6 +214,21 @@ const Editor = () => {
     );
   };
 
+  const imageClicked = () => {
+    setShowImgPopUp(true);
+  };
+
+  const handleSubmitImg = () => {
+    setCurrentText(
+      currentText.substring(0, myTextArea.current.selectionStart) +
+        `[![${name}](${url})](${url})` +
+        currentText.substring(
+          myTextArea.current.selectionStart,
+          currentText.length
+        )
+    );
+  };
+
   return (
     <div className="Editor">
       <div className="toolbarContainer">
@@ -242,7 +260,7 @@ const Editor = () => {
           <FaListOl />
         </button>
         <button className="horizontalRule" onClick={horizontalRuleClicked}>
-          -
+          --
         </button>
         <button className="inlineCode" onClick={inlineCodeClicked}>
           <FaCode />
@@ -256,7 +274,44 @@ const Editor = () => {
         <LinkInput show={show}>
           <div className="heading">
             <h4>Link</h4>
-            <button className="close" onClick={handleClose}></button>
+            <button className="close" onClick={handleClose}>
+              X
+            </button>
+          </div>
+          <div className="dataContainer">
+            <div className="link">
+              <label htmlFor="url">URL:</label>
+              <input
+                type="url"
+                className="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+            <div className="name">
+              <label htmlFor="name">Title:</label>
+              <input
+                type="text"
+                className="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </div>
+          <button className="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </LinkInput>
+        <button className="image" onClick={imageClicked}>
+          <FaRegImage />
+        </button>
+
+        <LinkInput show={showImgPopUp}>
+          <div className="heading">
+            <h4>Image</h4>
+            <button className="close" onClick={handleClose}>
+              X
+            </button>
           </div>
           <div className="dataContainer">
             <div className="link">
@@ -278,9 +333,12 @@ const Editor = () => {
               />
             </div>
           </div>
-          <button className="submit" onClick={handleSubmit}></button>
+          <button className="submitImg" onClick={handleSubmitImg}>
+            Submit
+          </button>
         </LinkInput>
       </div>
+
       <div className="editorContainer">
         <textarea
           className="inputArea"
@@ -290,6 +348,7 @@ const Editor = () => {
           cols="30"
           rows="10"
         ></textarea>
+
         <ReactMarkdown remarkPlugins={[breaks]} className="preview">
           {currentText}
         </ReactMarkdown>
