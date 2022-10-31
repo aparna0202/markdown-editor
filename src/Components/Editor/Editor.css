@@ -4,7 +4,7 @@
 }
 
 .Editor {
-  background-color: blue;
+  background-color: white;
 
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@
 }
 
 .editorContainer {
-  background-color: red;
+  background-color: white;
 
   display: flex;
   align-items: center;
@@ -44,10 +44,12 @@
 
   padding: 15px;
   line-height: 1.5;
+  border: none;
 }
 
 .preview {
   background-color: grey;
+  color: #fff;
 
   height: 100%;
   width: 50%;

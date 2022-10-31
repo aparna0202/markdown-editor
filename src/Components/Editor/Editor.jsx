@@ -10,6 +10,9 @@ import {
   FaRegFileCode,
   FaLink,
   FaRegImage,
+  FaUndo,
+  FaRedo,
+  FaFileDownload,
 } from "react-icons/fa";
 
 const Editor = () => {
@@ -229,6 +232,9 @@ const Editor = () => {
     );
   };
 
+  const undoClicked = () => {};
+  const redoClicked = () => {};
+
   return (
     <div className="Editor">
       <div className="toolbarContainer">
@@ -337,6 +343,17 @@ const Editor = () => {
             Submit
           </button>
         </LinkInput>
+
+        <button className="undo" onClick={undoClicked}>
+          <FaUndo />
+        </button>
+        <button className="redo" onClick={redoClicked}>
+          <FaRedo />
+        </button>
+
+        <button className="download">
+          <FaFileDownload />
+        </button>
       </div>
 
       <div className="editorContainer">

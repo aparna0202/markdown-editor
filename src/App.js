@@ -1,4 +1,4 @@
-import Editor from "./Editor/Editor";
+import Editor from "./Components/Editor/Editor";
 import Toolbar from "./Toolbar/Toolbar";
 
 function App() {
