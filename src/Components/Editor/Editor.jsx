@@ -364,6 +364,7 @@ const Editor = () => {
           ref={myTextArea}
           cols="30"
           rows="10"
+          spellCheck="false"
         ></textarea>
 
         <ReactMarkdown remarkPlugins={[breaks]} className="preview">

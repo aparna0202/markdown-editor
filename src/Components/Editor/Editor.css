@@ -46,7 +46,9 @@
   line-height: 1.5;
   border: none;
 }
-
+.inputArea:focus {
+  outline: none;
+}
 .preview {
   background-color: grey;
   color: #fff;
